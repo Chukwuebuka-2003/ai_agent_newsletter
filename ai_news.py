@@ -1,5 +1,5 @@
 import streamlit as st
-from main import ResearchCrew  # Import the ResearchCrew class from main.py
+from main import NewsletterCrew # Import the ResearchCrew class from main.py
 import os
 import uuid
 
