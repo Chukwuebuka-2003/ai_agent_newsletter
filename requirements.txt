@@ -3,6 +3,6 @@ langchain
 langchain-groq
 langchain_google_genai
 crewai
-
+pysqlite3-binary
 exa_py
 langchain-community
