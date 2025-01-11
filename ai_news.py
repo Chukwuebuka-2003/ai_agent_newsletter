@@ -46,7 +46,7 @@ if prompt := st.chat_input("Enter your research topic or question:"):
 
     # Process user input
     inputs = "\n".join([msg["content"] for msg in st.session_state.current_conversation if msg["role"] == "user"])
-    research_crew = ResearchCrew(inputs)
+    research_crew = NewsletterCrew(inputs)
     response = research_crew.run()
 
     # Add assistant response to conversation history
