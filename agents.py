@@ -1,7 +1,7 @@
 from crewai import Agent
 from langchain.chat_models import ChatOpenAI
 
-class ResearchCrewAgents:
+class NewsletterAgents:
     def __init__(self, llm, search_tool):
         self.researcher = Agent(
             llm=llm,
