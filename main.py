@@ -5,21 +5,21 @@ import os
 
 from crewai import Crew, Process
 from search_tool import SearchAndContents
-from agents import ResearchCrewAgents
-from tasks import ResearchCrewTasks
+from agents import NewsletterAgents
+from tasks import NewsletterTasks
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
-class ResearchCrew:
+class NewsletterCrew:
     def __init__(self, inputs):
         self.inputs = inputs
         self.search_tool = SearchAndContents()
-        self.agents = ResearchCrewAgents(llm=None, search_tool=self.search_tool)  # Pass the LLM and search tool
-        self.tasks = ResearchCrewTasks(
+        self.agents = NewsletterAgents(llm=None, search_tool=self.search_tool)  # Pass the LLM and search tool
+        self.tasks = NewsletterTasks(
             self.agents.get_agents()["researcher"],
-            self.agents.get_agents()["partnership_expert"],
+            self.agents.get_agents()["insights_expert"],
             self.agents.get_agents()["writer"],
             self.agents.get_agents()["editor"]
         )
@@ -27,7 +27,7 @@ class ResearchCrew:
     def run(self):
         # Initialize agents
         researcher = self.agents.get_agents()["researcher"]
-        partnership_expert = self.agents.get_agents()["partnership_expert"]
+        insights_expert = self.agents.get_agents()["insights_expert"]
         writer = self.agents.get_agents()["writer"]
         editor = self.agents.get_agents()["editor"]
 
@@ -36,13 +36,12 @@ class ResearchCrew:
 
         # Form the crew with defined agents and tasks
         crew = Crew(
-            agents=[researcher, partnership_expert, writer, editor],
+            agents=[researcher, insights_expert, writer, editor],
             tasks=tasks,
             process=Process.sequential,
             planning=True,
             verbose=True
         )
 
-        # Execute the crew to carry out the research project
+        # Execute the crew to carry out the newsletter creation process
         return crew.kickoff(inputs={"user_input": self.inputs})
-
