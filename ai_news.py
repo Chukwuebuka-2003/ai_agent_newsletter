@@ -26,8 +26,8 @@ else:
     st.sidebar.write("No previous conversations.")
 
 # Main chat interface
-st.title("Research Assistant Chatbot")
-st.write("Welcome! Ask me anything about your research topics, and I'll assist you.")
+st.title("Team Geto Weekly AI Newsletter")
+st.write("Welcome! Feel free to ask me anything about your research topics in machine learning, deep learning, or AI, and I'll be happy to assist you..")
 
 # Display current conversation
 if "current_conversation" not in st.session_state:
