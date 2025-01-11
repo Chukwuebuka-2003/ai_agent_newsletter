@@ -1,6 +1,6 @@
 from crewai import Task
 
-class NewsletterTasks:
+class ResearchCrewTasks:
     def __init__(self, researcher, insights_expert, writer, editor):
         self.research_task = Task(
             description=(
