@@ -65,7 +65,3 @@ Input the latest AI trends or user-defined topics, and the application will:
 - Integration with external platforms for direct distribution (e.g., email, social media).
 - Additional customization options for the newsletter layout.
 
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
