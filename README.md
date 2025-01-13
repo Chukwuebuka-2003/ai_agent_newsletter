@@ -21,6 +21,7 @@ An AI-driven CrewAI Multi-Agent application that automatically creates engaging 
 - **Custom Search Tool**: Tailored search functionality for gathering AI-related content from trusted sources
 - **Document Parsing**: Python (handling content from multiple formats)
 - **Environment Management**: dotenv for seamless configuration
+- **Deployed URL**: https://getoainews.streamlit.app/
 
 ## 🌟 How It Works
 
