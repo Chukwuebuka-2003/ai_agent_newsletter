@@ -6,3 +6,5 @@ crewai
 pysqlite3-binary
 exa_py
 langchain-community
+fastapi
+uvicorn
