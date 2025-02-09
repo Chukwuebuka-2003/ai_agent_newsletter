@@ -8,3 +8,4 @@ exa_py
 langchain-community
 fastapi
 uvicorn
+gunicorn
