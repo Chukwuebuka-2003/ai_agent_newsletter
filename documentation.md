@@ -54,8 +54,6 @@ ai_agent_newsletter/
 - **`gunicorn_config.py`**  
   Contains configuration settings for running the FastAPI app with Gunicorn. This file is used during production deployments.
 
-- **`start.sh`**  
-  A shell script for Render deployments. It starts the app using Gunicorn with the Uvicorn worker.
 
 ## Setup & Installation
 
