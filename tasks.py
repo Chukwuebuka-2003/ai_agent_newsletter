@@ -1,3 +1,4 @@
+import asyncio
 from crewai import Task
 
 class NewsletterTasks:
@@ -52,3 +53,13 @@ class NewsletterTasks:
             self.write_task,
             self.edit_task
         ]
+
+    async def run_tasks_async(self):
+        """Run all tasks concurrently for faster execution."""
+        tasks = [
+            asyncio.create_task(self.research_task.run()),
+            asyncio.create_task(self.insights_task.run()),
+            asyncio.create_task(self.write_task.run()),
+            asyncio.create_task(self.edit_task.run())
+        ]
+        return await asyncio.gather(*tasks)

@@ -2,21 +2,31 @@ __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 import os
+import asyncio
 
 from crewai import Crew, Process
 from search_tool import SearchAndContents
 from agents import NewsletterAgents
 from tasks import NewsletterTasks
-
 from dotenv import load_dotenv
+from langchain.chat_models import ChatOpenAI  # Import LLM model
 
 load_dotenv()
 
 class NewsletterCrew:
-    def __init__(self, inputs):
+    def __init__(self, inputs, temperature=0.7):  # Add temperature parameter
         self.inputs = inputs
+        self.temperature = temperature  # Store temperature setting
+
+        # ✅ Specify OpenAI as the provider and pass the API key explicitly
+        self.llm = ChatOpenAI(
+            model_name="gpt-4o-mini",  # Ensure correct model name
+            temperature=self.temperature,
+            openai_api_key=os.getenv("OPENAI_API_KEY")  # Load API key from .env
+        )
+
         self.search_tool = SearchAndContents()
-        self.agents = NewsletterAgents(llm=None, search_tool=self.search_tool)  # Pass the LLM and search tool
+        self.agents = NewsletterAgents(llm=self.llm, search_tool=self.search_tool)  # Pass LLM
         self.tasks = NewsletterTasks(
             self.agents.get_agents()["researcher"],
             self.agents.get_agents()["insights_expert"],
@@ -24,24 +34,22 @@ class NewsletterCrew:
             self.agents.get_agents()["editor"]
         )
 
-    def run(self):
-        # Initialize agents
-        researcher = self.agents.get_agents()["researcher"]
-        insights_expert = self.agents.get_agents()["insights_expert"]
-        writer = self.agents.get_agents()["writer"]
-        editor = self.agents.get_agents()["editor"]
-
-        # Initialize tasks
-        tasks = self.tasks.get_tasks()
-
-        # Form the crew with defined agents and tasks
+    async def run(self):
+        """Runs the newsletter generation asynchronously for better performance."""
         crew = Crew(
-            agents=[researcher, insights_expert, writer, editor],
-            tasks=tasks,
-            process=Process.sequential,
+            agents=[
+                self.agents.get_agents()["researcher"],
+                self.agents.get_agents()["insights_expert"],
+                self.agents.get_agents()["writer"],
+                self.agents.get_agents()["editor"]
+            ],
+            tasks=self.tasks.get_tasks(),
+            process=Process.sequential,  # Change to Process.parallel for more speed
             planning=True,
             verbose=True
         )
 
-        # Execute the crew to carry out the newsletter creation process
-        return crew.kickoff(inputs={"user_input": self.inputs})
+        # Correct way: Directly await kickoff_async since it's already an async function
+        result = await crew.kickoff_async({"user_input": self.inputs})
+        
+        return result
