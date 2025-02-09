@@ -25,9 +25,7 @@ ai_agent_newsletter/
 ├── search_tool.py        # Contains the tool for web searching and content retrieval (via the Exa API)
 ├── api.py                # FastAPI application exposing the newsletter generation endpoint
 ├── gunicorn_config.py    # Gunicorn configuration for production deployment
-├── start.sh              # Startup script for deploying on Render using Gunicorn
 ├── requirements.txt      # Python dependencies
-└── DEVELOPER.md          # This developer documentation file
 ```
 
 ### File Details
