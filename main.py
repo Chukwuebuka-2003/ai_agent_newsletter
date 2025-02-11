@@ -18,7 +18,7 @@ class NewsletterCrew:
         self.inputs = inputs
         self.temperature = temperature  # Store temperature setting
 
-        # ✅ Specify OpenAI as the provider and pass the API key explicitly
+        # Specify OpenAI as the provider and pass the API key explicitly
         self.llm = ChatOpenAI(
             model_name="gpt-4o-mini",  # Ensure correct model name
             temperature=self.temperature,
@@ -44,12 +44,12 @@ class NewsletterCrew:
                 self.agents.get_agents()["editor"]
             ],
             tasks=self.tasks.get_tasks(),
-            process=Process.sequential,  # Change to Process.parallel for more speed
+            process=Process.sequential,  
             planning=True,
             verbose=True
         )
 
-        # Correct way: Directly await kickoff_async since it's already an async function
+        #  Directly await kickoff_async since it's already an async function
         result = await crew.kickoff_async({"user_input": self.inputs})
         
         return result
