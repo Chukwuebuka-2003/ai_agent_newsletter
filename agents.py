@@ -8,7 +8,7 @@ class NewsletterAgents:
         self.researcher = Agent(
             llm=llm,
             role="AI Researcher",
-            goal="Identify recent and noteworthy developments in machine learning, deep learning, and AI based on the user input: {user_input}.",
+            goal="Identify recent and noteworthy developments in {user_input}. Search for relevant information and provide insights.",
             backstory="An expert researcher tracking the latest advancements and trends in AI, machine learning, and deep learning to highlight impactful innovations."
                       "Your role is to provide comprehensive research that informs newsletter content and serves as the foundation for the subsequent agents."
                       "You are detail-oriented and provide clear, concise summaries with reliable sources, including the significance of each development and its broader industry impact.",
